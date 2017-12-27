@@ -60,5 +60,20 @@ router.post('/register',(req,res,next) =>{
 
 	});
 });
+//add Link
+router.post('/feedform',(req,res,next) =>{
+	let newLink = new User ({
+		link: req.body.link
+		
+	});
+	User.addLink(newLink, (err, user) => {
+		if (err) {
+			res.json({success: false, msg:'Failed to add Link'});
+		} else {
+			res.json({success: true, msg:'Link added'});
+		}
+
+	});
+});
 
 module.exports = router;

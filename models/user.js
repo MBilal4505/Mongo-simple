@@ -19,7 +19,13 @@ username: {
 password: {
 	type: String,
 	required: true
+},
+link: {
+	type:String,
+	required: false
+
 }
+
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -41,6 +47,9 @@ module.exports.addUser= function(newUser, callback){
             newUser.save(callback);
         });
     });
+}
+module.exports.addLink= function(newLink, callback){
+    newLink.save(callback);
 }
 module.exports.comparePassword = function(candidatePassword, hash, callback){
 	bcrypt.compare(candidatePassword, hash, (err, isMatch) =>{
