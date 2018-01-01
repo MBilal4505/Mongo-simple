@@ -4,6 +4,8 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
+const Feed = require('../models/feed');
+
 //Authenticate
 router.post('/authenticate',(req,res,next) =>{
 	const username = req.body.username;
@@ -40,8 +42,13 @@ router.post('/authenticate',(req,res,next) =>{
 });
 //Profile
 router.get('/profile',passport.authenticate('jwt', {session:false}), (req,res,next) =>{
-	console.log('Req comes here' ,req);
+	// console.log('Req comes here' ,req);
 	res.json({user:req.user});
+});
+//User Feed Link
+router.get('/userfeed', (req,res,next) =>{
+	// query 
+	res.json({feed:req.feed});
 });
 //Register
 router.post('/register',(req,res,next) =>{
@@ -62,12 +69,15 @@ router.post('/register',(req,res,next) =>{
 });
 //add Link
 router.post('/feedform',(req,res,next) =>{
-	let newLink = new User ({
+	let newLink = new Feed ({
+		email: req.body.email,
+		user_id:req.body.user_id,
 		link: req.body.link
 		
 	});
-	User.addLink(newLink, (err, user) => {
+	Feed.addLink(newLink, (err, user) => {
 		if (err) {
+			console.log('User is coming here', err);
 			res.json({success: false, msg:'Failed to add Link'});
 		} else {
 			res.json({success: true, msg:'Link added'});

@@ -6,6 +6,8 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const users = require('./routes/users');
 const config = require('./config/database');
+
+mongoose.Promise = global.Promise;
 //Connect to database
 mongoose.connect(config.database);
 //on Connection
