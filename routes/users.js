@@ -47,7 +47,10 @@ router.get('/profile',passport.authenticate('jwt', {session:false}), (req,res,ne
 });
 //User Feed Link
 router.get('/userfeed', (req,res,next) =>{
-	// query 
+	let getId = new Feed ({
+		id: req.params.id
+	});
+	console.log('The id it gets from user', req.params); 
 	res.json({feed:req.feed});
 });
 //Register
@@ -73,7 +76,6 @@ router.post('/feedform',(req,res,next) =>{
 		email: req.body.email,
 		user_id:req.body.user_id,
 		link: req.body.link
-		
 	});
 	Feed.addLink(newLink, (err, user) => {
 		if (err) {
@@ -82,7 +84,6 @@ router.post('/feedform',(req,res,next) =>{
 		} else {
 			res.json({success: true, msg:'Link added'});
 		}
-
 	});
 });
 

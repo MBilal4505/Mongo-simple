@@ -19,7 +19,7 @@ user_id: {
 const Feed = module.exports = mongoose.model('Feed', LinkSchema);
 
 module.exports.getUserById = function(id, callback){
-	Feed.find({'user_id': id});
+	Feed.find({id, callback});
 }
 
 module.exports.addLink= function(newLink, callback){
