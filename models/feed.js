@@ -18,9 +18,10 @@ const LinkSchema = mongoose.Schema({
 });
 const Feed = module.exports = mongoose.model('Feed', LinkSchema);
 
-module.exports.getUserById = function(id, callback) {
-   const query = { id: user_id }
-   Feed.findById({query, callback });
+module.exports.getUserByEmail = function(email, callback) {
+   const query = {'email': email}
+   Feed.find(query, callback );
+   console.log('The query contains' ,query);
 }
 
 module.exports.addLink = function(newLink, callback) {

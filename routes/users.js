@@ -46,27 +46,21 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
     res.json({ user: req.user });
 });
 //User Feed Link
-router.get('/userfeed/:id', (req, res, next) => {
-    const id = req.params;
-    //console.log('The id comes here',id);
-    Feed.getUserById(id, (err, user_id) => {
+router.get('/userfeed/:email', (req, res, next) => {
+    const email = req.params.email;
+    console.log('The email comes here',email);
+    Feed.getUserByEmail(email, (err, feed) => {
         if (err) throw err;
-        if (!user_id) {
+        if (!email) {
             return res.json({ success: false, msg: 'User not found' });
         }
-        // var resultArray = [];
-        // mongo.connect(url, function(err, db) {
-        //     assert.equal(null, err);
-        //     var cursor = db.collection('feeds').find();
-        //     cursor.forEach(function(doc, err) {
-        //         assert.equal(null, err);
-        //         resultArray.push(doc);
-        //     }, function() {
-        //         db.close();
-        //         res.render('index', { items: resultArray });
-        //     });
-        // });
+       //const feeds = feed.toJSON();
+      console.log("The feed contains the data",feed); 
+      res.json({ feed: feed}); 
     });
+    // res.json({ feed });
+    // res.send(feed);
+    
 });
 //Register
 router.post('/register', (req, res, next) => {
